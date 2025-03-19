@@ -1,3 +1,28 @@
 Atividade 8
 Listar todos os produtos comprados por cada cliente
 
+SELECT c.nome, p.nome_produto
+FROM   Pedidos d
+JOIN   Clientes c ON c.id_cliente = d.id_cliente
+JOIN   ItensPedido i ON i.id_pedido = d.id_pedido
+JOIN   Produtos p ON p.id_produto = i.id_produto 
+ORDER BY c.id_cliente ;
+
+Resultado:
+
+Ana	    Notebook
+Ana	    Mouse
+Ana	    Teclado
+Ana	    Monitor
+
+João	Impressora
+João	Notebook
+
+Maria	Mouse
+
+Pedro	Teclado
+Pedro	Monitor
+
+Carla	Impressora
+Carla	Notebook
+Carla	Mouse
