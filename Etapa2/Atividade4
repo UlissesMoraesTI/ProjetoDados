@@ -1,2 +1,11 @@
 Atividade 4
 Listar os 3 primeiros produtos cadastrados
+
+SELECT id_produto, nome_produto, preco
+FROM Produtos
+ORDER BY id_produto
+LIMIT 3;
+
+1	Notebook	3000.0
+2	Mouse	    50.0
+3	Teclado	    100.0
