@@ -8,3 +8,27 @@ Data do pedido
 Valor do pedido
 Preço do pedido sem desconto (pode ser recuperado somando a coluna "preço" de cada produto dentro do pedido)
 Quantidade de dias entre o pedido e seu pedido imediatamente anterior
+
+
+SELECT c.id_cliente, c.nome, c.cidade, p.id_pedido, p.data_pedido, p.valor AS valor_com_desconto, SUM(i.quantidade * o.preco) AS valor_sem_desconto,    
+    CAST(julianday(p.data_pedido) - julianday(LAG(p.data_pedido) OVER (PARTITION BY c.id_cliente ORDER BY p.data_pedido)) AS INTEGER) AS qtd_dias
+FROM Clientes c 
+JOIN Pedidos p ON c.id_cliente = p.id_cliente
+JOIN ItensPedido i ON i.id_pedido = p.id_pedido 
+JOIN Produtos o ON o.id_produto = i.id_produto 
+GROUP BY c.id_cliente, p.id_pedido;
+
+Resultado:
+
+id_cliente  nome    cidade          id_pedido   data_pedido valor_com_desconto  valor_sem_desconto  qtd_dias
+1	        Ana	    São Paulo	    1	        2024-11-01	150.0	            3100.0	
+1	        Ana	    São Paulo	    2	        2024-11-04	50.0	            100.0	            3   
+1	        Ana	    São Paulo	    3	        2024-11-06	120.0	            800.0	            2
+2	        João	Rio de Janeiro	4	        2024-11-02	200.0	            1200.0	
+2	        João	Rio de Janeiro	5	        2024-11-07	180.0	            3000.0	            5
+3	        Maria	Belo Horizonte	6	        2024-11-03	75.0	            150.0	
+4	        Pedro	Curitiba	    7	        2024-11-05	300.0	            100.0	
+4	        Pedro	Curitiba	    8	        2024-11-08	250.0	            1600.0	            3
+5	        Carla	Porto Alegre	9	        2024-11-09	220.0	            1200.0	
+5	        Carla	Porto Alegre	10	        2024-11-10	190.0	            6000.0	            1
+5	        Carla	Porto Alegre	11	        2024-11-11	210.0	            50.0	            1
