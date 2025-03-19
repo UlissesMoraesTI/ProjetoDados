@@ -1,2 +1,19 @@
 Atividade 6
 Encontrar o cliente com o maior valor gasto
+
+WITH TotaisPorCliente AS (
+    SELECT id_cliente, 
+           SUM(valor) AS total_por_cliente
+    FROM Pedidos
+    GROUP BY id_cliente
+)
+SELECT id_cliente, total_por_cliente
+FROM TotaisPorCliente
+WHERE total_por_cliente = (
+    SELECT MAX(total_por_cliente)
+    FROM TotaisPorCliente
+);
+
+Resultado:
+
+5	620.0
