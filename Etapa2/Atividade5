@@ -1,2 +1,15 @@
 Atividade 5
 Listar o total de valor gasto por cada cliente em pedidos.
+
+SELECT id_cliente,  
+       SUM(valor) AS total_por_cliente  
+FROM Pedidos  
+GROUP BY id_cliente;
+
+Resultado:
+
+1	320.0
+2	380.0
+3	75.0
+4	550.0
+5	620.0
