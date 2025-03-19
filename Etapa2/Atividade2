@@ -1,2 +1,17 @@
 Atividade 2
-Listar os pedidos com valor acima de R$100Atividade 1
+Listar os pedidos com valor acima de R$100
+
+SELECT id_pedido, id_cliente, valor, data_pedido
+FROM Pedidos
+WHERE valor > 100;
+
+Resultado:
+1	1	150.0	2024-11-01
+3	1	120.0	2024-11-06
+4	2	200.0	2024-11-02
+5	2	180.0	2024-11-07
+7	4	300.0	2024-11-05
+8	4	250.0	2024-11-08
+9	5	220.0	2024-11-09
+10	5	190.0	2024-11-10
+11	5	210.0	2024-11-11
