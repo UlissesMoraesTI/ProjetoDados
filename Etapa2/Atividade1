@@ -1,0 +1,13 @@
+Atividade 1
+Listar os nomes e cidades de todos os clientes em uma só consulta
+
+SELECT nome, cidade
+FROM Clientes;
+
+Resultado:
+
+Ana	    São Paulo
+João	Rio de Janeiro
+Maria	Belo Horizonte
+Pedro	Curitiba
+Carla	Porto Alegre
