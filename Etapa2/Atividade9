@@ -1,3 +1,18 @@
 Atividade 9
 Ranquear clientes pelo valor total gasto começando pelo rank 1 para o maior valor.
 
+SELECT 
+    id_cliente,
+    SUM(valor) AS total_por_cliente,
+    RANK() OVER (ORDER BY SUM(valor) DESC) AS ranking
+FROM Pedidos
+GROUP BY id_cliente;
+
+Resultado:
+
+cliente total_por_cliente   ranking 
+5	    620.0	            1
+4	    550.0	            2
+2	    380.0	            3
+1	    320.0	            4
+3	    75.0	            5
