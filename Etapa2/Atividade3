@@ -1,2 +1,20 @@
 Atividade 3
 Listar os pedidos ordenados pelo valor (decrescente)
+
+SELECT id_pedido, id_cliente, valor, data_pedido
+FROM Pedidos
+ORDER BY valor DESC;
+
+Resultado: 
+
+7	4	300.0	2024-11-05
+8	4	250.0	2024-11-08
+9	5	220.0	2024-11-09
+11	5	210.0	2024-11-11
+4	2	200.0	2024-11-02
+10	5	190.0	2024-11-10
+5	2	180.0	2024-11-07
+1	1	150.0	2024-11-01
+3	1	120.0	2024-11-06
+6	3	75.0	2024-11-03
+2	1	50.0	2024-11-04
