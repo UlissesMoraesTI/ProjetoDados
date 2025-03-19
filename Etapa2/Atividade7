@@ -1,2 +1,19 @@
 Atividade 7
 Utilizar CTE para calcular o total de vendas por produto
+
+WITH TotalVendas AS (
+   SELECT id_produto, SUM(quantidade) AS qtde_produto
+   FROM ItensPedido
+   GROUP BY id_produto
+)
+SELECT p.nome_produto, (t.qtde_produto * p.preco)
+FROM Produtos p 
+JOIN TotalVendas t ON p.id_produto = t.id_produto;
+
+Resultado:
+
+Notebook	12000.0
+Mouse	    300.0
+Teclado	    200.0
+Monitor	    2400.0
+Impressora	2400.0
