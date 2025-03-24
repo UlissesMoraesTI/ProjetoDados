@@ -1,0 +1,5 @@
+produto,quantidade,preco_unitario
+Produto A,10,50.0
+Produto B,5,150.0
+Produto C,8,80.0
+Produto D,12,30.0
