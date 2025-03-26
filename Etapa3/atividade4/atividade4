@@ -1,0 +1,41 @@
+import pandas as pd
+import os
+
+#função que leia o arquivo dados_agregacao.csv e retorne um DataFrame.
+def ler_arquivo_agregacao():
+    df_csv = pd.read_csv('./atividade4/dados_agregacao.csv', delimiter=';')
+    return df_csv
+
+#função para agrupar os dados pela coluna categoria
+#função sumarizar os valores por categoria.
+#função calcular a média dos valores por categoria.
+def agrupar_por_categoria(df_csv): 
+    df_csv = df_csv.groupby(['categoria'], as_index=False).agg({'valor': ['sum', 'mean']})     
+    return df_csv
+
+#função para renomear as colunas do DataFrame
+def renomear_colunas(df_csv):
+    df_csv.columns = ['categoria', 'soma_valor', 'media_valor']
+    return df_csv
+
+#função DataFrame Saída em arquivo Parquet.
+def salvar_arquivo_agregacao(df_csv):
+    os.makedirs('./atividade4', exist_ok=True)
+    df.to_parquet('./atividade4/dados_agregados.parquet', index=False)
+
+#função que leia o arquivo Parquet dados_agregacao.parquet e retorne um DataFrame.
+def ler_arquivo_parquet():
+    df_par = pd.read_parquet('./atividade4/dados_agregados.parquet')
+    return df_par
+
+#Lógica principal
+df = ler_arquivo_agregacao()
+df = agrupar_por_categoria(df)
+df = renomear_colunas(df)
+df = salvar_arquivo_agregacao(df)
+df = ler_arquivo_parquet()
+
+#imprimir o DataFrame
+print("Imprimir_parquet")
+print(df)
+print("Fim do programa!")
