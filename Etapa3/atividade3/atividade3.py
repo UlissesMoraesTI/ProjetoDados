@@ -25,7 +25,7 @@ def gerar_relatorio_lista_dicionarios(df_json):
 #Lógica principal
 df = ler_json_usuarios()
 df = converte_json_to_df(df)
-df = filtrar_usuarios_idade_maior_que_18(df, 1)
+df = filtrar_usuarios_idade_maior_que_18(df, 18)
 df = ordenar_usuarios_por_idade(df)
 df = gerar_relatorio_lista_dicionarios(df)
  
