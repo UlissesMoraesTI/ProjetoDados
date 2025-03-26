@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 #função que leia o json usuarios.json e retorne um DataFrame.
 def ler_json_usuarios():
@@ -22,12 +23,17 @@ def ordenar_usuarios_por_idade(df_json):
 def gerar_relatorio_lista_dicionarios(df_json):
     return df_json.to_dict('records')
 
+#função ajuste saída json para aspas duplas
+#def ajustar_saida_json(df_json):
+#    return json.dumps(df_json, ensure_ascii=False, indent=4)
+
 #Lógica principal
 df = ler_json_usuarios()
 df = converte_json_to_df(df)
 df = filtrar_usuarios_idade_maior_que_18(df, 18)
 df = ordenar_usuarios_por_idade(df)
 df = gerar_relatorio_lista_dicionarios(df)
+#df = ajustar_saida_json(df)
  
 #imprimir o DataFrame
 print("Usuarios")
