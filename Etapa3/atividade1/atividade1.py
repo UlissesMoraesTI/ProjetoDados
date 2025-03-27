@@ -3,6 +3,8 @@ import pandas as pd
 #função que leia o arquivo vendas.csv e retorne um DataFrame.
 def ler_arquivo_vendas():
     df_csv = pd.read_csv('./atividade1/vendas.csv', delimiter=';')
+    print("Arquivo lido com sucesso!")
+    print(df_csv)
     return df_csv
 
 #função nova coluna valor_total(quantidade * preco_unitario)
