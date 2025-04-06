@@ -1,0 +1,6 @@
+id_transacao,id_cliente,valor,data_transacao,categoria
+1,1,100.0,2023-11-01,Compras
+2,2,200.0,2023-11-02,Alimentação
+3,3,150.0,2023-11-03,Compras
+4,4,300.0,2023-11-01,Viagem
+5,5,50.0,2023-11-04,Alimentação

@@ -7,7 +7,7 @@ from pyspark.sql.functions import *
 
 spark = SparkSession.builder.appName("Comparison").getOrCreate()
 
-#função para ler o arquivo clientes.csv e retornar um DataFrame
+#função para ler o arquivo transações e retornar um DataFrame
 def ler_arquivo_transacoes():
     df = spark.read.csv("./atividade2/transacoes.csv", header=True, inferSchema=True, encoding="utf-8")
     return df
@@ -22,7 +22,7 @@ def incluir_coluna_quantidade(df):
     df = df.withColumn("quantidade", lit(1))
     return df
 
-#função para agrupar as transações por categora e quantidade, calculanado o valor total(valor_total)
+#função para agrupar as transações por categoria e quantidade, calculanado o valor total(valor_total)
 def agrupar_transacoes(df):
     df = df.groupBy("categoria").agg(
         sum(col("valor")).alias("valor_total"),
