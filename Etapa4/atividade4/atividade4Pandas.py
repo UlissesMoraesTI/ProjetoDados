@@ -1,59 +1,39 @@
-import os
-os.environ["HADOOP_HOME"] = "C:\\Hadoop"
-os.environ["SPARK_HOME"] = "C:\\spark"
+import pandas as pd
 
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import sum, col
-
-
-spark = SparkSession.builder.appName("Comparison").getOrCreate()
-
-#função para ler o arquivo clientes.csv e retornar um DataFrame
+#função que leia o arquivo clientes e retorne um DataFrame.
 def ler_arquivo_clientes():
-    df_cli = spark.read.csv("./atividade1/clientes.csv", header=True, inferSchema=True, encoding="utf-8")
-    return df_cli
+    df = pd.read_csv("./atividade4/clientes.csv", sep=None, engine="python")    
+    return df
 
-#função para renomear a coluna id_cliente para id_cliente_cli
-def renomear_coluna_id_cliente_cli(df_cli):
-    df_cli = df_cli.withColumnRenamed("id_cliente", "id_cliente_cli")  # Renomeando a coluna
-    return df_cli
+#função filtro idade superior a 30.
+def filtrar_idade_superior_30(df, idade):
+    return df[df['idade'] > idade]
 
-#função para ler o arquivo clientes.csv e retornar um DataFrame
+#função que leia o arquivo transacoes e retorne um DataFrame.
 def ler_arquivo_transacoes():
-    df_trn = spark.read.csv("./atividade2/transacoes.csv", header=True, inferSchema=True, encoding="utf-8")
-    return df_trn
-
-#função para renomear a coluna id_cliente para id_cliente_trn
-def renomear_coluna_id_cliente_trn(df_trn):
-    df_trn = df_trn.withColumnRenamed("id_cliente", "id_cliente_trn")  # Renomeando a coluna
-    return df_trn
-
-#função join para juntar os DataFrames de clientes e transações
-def juntar_dataframes(df_cli, df_trn):
-    df = df_cli.join(df_trn, col("id_cliente_cli") == col("id_cliente_trn"), "inner") 
+    df = pd.read_csv("./atividade4/transacoes.csv", sep=None, engine="python")    
     return df
 
-#função para agrupar por cliente criar uma nova coluna total_transacoes que represente o valor total de transações por cliente
-def  agrupar_por_cliente(df):
-    df = df.groupBy("id_cliente_cli").agg(sum("valor").alias("total_transacoes"))
-    return df
-#função para mostrar o cliente com maior valor total de transações
-def cliente_maior_transacao(df):
-    df = df.orderBy(col("total_transacoes").desc()).limit(1)  # Ordena e pega o maior
-    return df 
+#função que agrupa por categora e e soma o valor total de cada categoria.
+def agrupar_categoria_soma(df):
+    return df.groupby('categoria')['valor'].sum().reset_index()
 
 #Lógica principal
-df_cli = ler_arquivo_clientes()
-df_cli.show(5)
-df_cli = renomear_coluna_id_cliente_cli(df_cli)
-df_cli.show(5)
-df_trn = ler_arquivo_transacoes()
-df_trn.show(5)
-df_trn = renomear_coluna_id_cliente_trn(df_trn)
-df_trn.show(5)
-df = juntar_dataframes(df_cli, df_trn)
-df.show(5)
-df = agrupar_por_cliente(df)
-df.show(5)
-df = cliente_maior_transacao(df)
-df.show(5)
+df = ler_arquivo_clientes()
+print("DataFrame clientes:")
+print("-------------------")
+print(df)
+print(" ")
+print("------------------------------------------")
+print("DataFrame filtro idade superior a 30 anos:")
+df = filtrar_idade_superior_30(df, 30) 
+print(df)
+df = ler_arquivo_transacoes()
+print("DataFrame transacoes:")
+print("---------------------")
+print(df)
+print(" ")
+df = agrupar_categoria_soma(df)
+print("---------------------------------")
+print("DataFrame agrupado por categoria:")
+print(df)

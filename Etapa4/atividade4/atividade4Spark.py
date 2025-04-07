@@ -37,3 +37,7 @@ df = ler_arquivo_transacoes()
 df.show(5)
 df = agrupar_transacoes(df)
 df.show(5)
+
+#Parecer conclusivo no comparativo entre Pandas e Spark: No conceito lógica de programação 
+# são identicos, o código Pandas é mais simples de entender e mais fácil de implementar,
+# e roda absurdamente mais rápido.#   
